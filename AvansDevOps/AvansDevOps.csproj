@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Observer\Interfaces\" />
-    <Folder Include="Strategy\Interfaces\" />
+    <Folder Include="Strategy\" />
   </ItemGroup>
 
 </Project>
