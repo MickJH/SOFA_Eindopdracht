@@ -11,12 +11,19 @@ namespace AvansDevOps.State.Forums
     public class Forum
     {
         public IForumState CurrentState { get; set; }
-        public string Topic { get; private set; }
+        public string Title { get; private set; }
+        private List<Message> Messages;
 
-        public Forum(string topic)
+        public Forum(int backlogId ,string topic)
         {
-            Topic = topic;
+            Title = backlogId + " " + topic;
             CurrentState = new OpenState();
+            Messages = new List<Message>();
+        }
+
+        public void PostMessage(Message newMessage)
+        {
+            Messages.Add(newMessage);
         }
 
         public void Open() => CurrentState.Open(this);
