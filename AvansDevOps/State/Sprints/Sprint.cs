@@ -26,9 +26,42 @@ namespace AvansDevOps.State.Sprints
             CurrentState = new CreatedState();
         }
 
-        public void SetName(string name) => CurrentState.SetName(this, name);
-        public void SetDates(DateTime start, DateTime end) => CurrentState.SetDates(this, start, end);
-        public void AddBacklogItem(BacklogItem item) => CurrentState.AddBacklogItem(this, item);
+        public void SetName(string name)
+        {
+            if (CurrentState is CreatedState)
+            {
+                Name = name;
+            }
+            else
+            {
+                throw new InvalidOperationException("Cannot change the name of a sprint that has already started.");
+            }
+        }
+
+        public void SetDates(DateTime start, DateTime end)
+        {
+            if (CurrentState is CreatedState)
+            {
+                StartDate = start;
+                EndDate = end;
+            }
+            else
+            {
+                throw new InvalidOperationException("Cannot change the dates of a sprint that has already started.");
+            }
+        }
+
+        public void AddBacklogItem(BacklogItem item)
+        {
+            if (CurrentState is CreatedState)
+            {
+                BacklogItems.Add(item);
+            }
+            else
+            {
+                throw new InvalidOperationException("Cannot change the backlog of a sprint that has already started.");
+            }
+        }
         public void Start() => CurrentState.Start(this);
         public void Finish() => CurrentState.Finish(this);
         public void Release() => CurrentState.Release(this);

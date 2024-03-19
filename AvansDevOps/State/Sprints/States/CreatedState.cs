@@ -10,17 +10,6 @@ namespace AvansDevOps.State.Sprints.States
 {
     public class CreatedState : ISprintState
     {
-        
-        public void SetName(Sprint sprint, string name) => sprint.Name = name;
-
-        public void SetDates(Sprint sprint, DateTime start, DateTime end)
-        {
-            sprint.StartDate = start;
-            sprint.EndDate = end;
-        }
-
-        public void AddBacklogItem(Sprint sprint, BacklogItem item) => sprint.BacklogItems.Add(item);
-
         public void Start(Sprint sprint) => sprint.CurrentState = new InProgressState();
 
         // The following operations are not allowed in this state, so they will throw an exception or simply do nothing

@@ -10,9 +10,6 @@ namespace AvansDevOps.State.Sprints.States
     public class InProgressState : ISprintState
     {
         // These operations are now disallowed, so they throw an exception or simply do nothing
-        public void SetName(Sprint sprint, string name) { throw new InvalidOperationException("Cannot change the name of a sprint in progress."); }
-        public void SetDates(Sprint sprint, DateTime start, DateTime end) { throw new InvalidOperationException("Cannot change the dates of a sprint in progress."); }
-        public void AddBacklogItem(Sprint sprint, BacklogItem item) { throw new InvalidOperationException("Cannot add backlog items to a sprint in progress."); }
         public void Start(Sprint sprint) { throw new InvalidOperationException("Sprint is already in progress."); }
 
         public void Finish(Sprint sprint) => sprint.CurrentState = new FinishedState();
