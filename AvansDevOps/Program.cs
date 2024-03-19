@@ -1,32 +1,13 @@
-﻿// Create a new sprint
-using AvansDevOps.State.BacklogItems;
-using AvansDevOps.State.Sprints;
+﻿// See https://aka.ms/new-console-template for more information
+using AvansDevOps.Factory.User.Roles;
+using AvansDevOps.Factory.User;
 
-Sprint sprint = new Sprint("Initial Sprint", DateTime.Now, DateTime.Now.AddDays(14));
-Console.WriteLine($"Sprint created: {sprint.Name}");
+Console.WriteLine("Hello, World!");
 
-// Attempt to change the name of the sprint while it's in the CreatedState
-try
-{
-    sprint.SetName("Updated Sprint Name");
-    Console.WriteLine($"Sprint name changed to: {sprint.Name}");
-}
-catch (InvalidOperationException ex)
-{
-    Console.WriteLine($"Error changing name: {ex.Message}");
-}
+var productOwner = UserFactory.CreateUser<ProductOwner>();
+var developer = UserFactory.CreateUser<Developer>();
+var scrumMasterTwo = UserFactory.CreateUser<ScrumMaster>();
 
-// Start the sprint
-sprint.Start();
-Console.WriteLine("Sprint started.");
 
-// Attempt to change the name of the sprint after it has started
-try
-{
-    sprint.SetName("Attempted Name Change After Start");
-}
-catch (InvalidOperationException ex)
-{
-    Console.WriteLine($"Error changing name after start: {ex.Message}");
-}
-
+productOwner.Name = "Bob";
+Console.WriteLine($"{productOwner.Name}");
