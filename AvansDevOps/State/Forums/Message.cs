@@ -12,5 +12,12 @@ namespace AvansDevOps.State.Forums
         public string Content { get; set; }
         public DateTime TimeStamp { get; set; }
         public string User { get; set; }
+
+        public Message(string content, string userName)
+        {
+            this.Content = content;
+            this.User = userName;
+            this.TimeStamp = DateTime.Now;
+        }
     }
 }

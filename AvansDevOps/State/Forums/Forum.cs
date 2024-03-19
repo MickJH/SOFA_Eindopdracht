@@ -1,4 +1,6 @@
-﻿using AvansDevOps.Observer.Interfaces;
+﻿using AvansDevOps.Factory.User;
+using AvansDevOps.Factory.User.Roles;
+using AvansDevOps.Observer.Interfaces;
 using AvansDevOps.State.Forums.States;
 using Microsoft.VisualBasic;
 using System;
@@ -16,20 +18,34 @@ namespace AvansDevOps.State.Forums
         private List<Message> Messages;
         private readonly List<INotificationObserver> _notificationObservers;
 
-        public Forum(int backlogId ,string topic)
+        public Forum(int backlogId, string topic)
         {
             Title = backlogId + " " + topic;
             CurrentState = new OpenState();
             Messages = new List<Message>();
+            _notificationObservers = new List<INotificationObserver>();
         }
 
         public void PostMessage(Message newMessage)
         {
-            Messages.Add(newMessage);
+            if(CurrentState is OpenState)
+            {
+                Messages.Add(newMessage);
+                NotifyObservers("New message posted by " + newMessage.User);
+            } else
+            {
+                throw new InvalidOperationException("Forum is closed, no new messages can be posted.");
+            }
         }
 
-        public void Open() => CurrentState.Open(this);
-        public void Close() => CurrentState.Close(this);
+        public void Open()
+        {
+            CurrentState.Open(this);
+        }
+        public void Close()
+        {
+            CurrentState.Close(this);
+        }
 
         public void RegisterObserver(INotificationObserver observer)
         {
@@ -42,7 +58,7 @@ namespace AvansDevOps.State.Forums
             _notificationObservers.RemoveAt(i);
         }
 
-        public void NotifyObservers(string message)
+        public void NotifyObservers(string message, Type[]? userRoles = null)
         {
             foreach (var observer in _notificationObservers)
             {
