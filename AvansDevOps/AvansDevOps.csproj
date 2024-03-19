@@ -7,4 +7,21 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Observer - Copy\**" />
+    <Compile Remove="State - Copy\**" />
+    <Compile Remove="Strategy - Copy\**" />
+    <EmbeddedResource Remove="Observer - Copy\**" />
+    <EmbeddedResource Remove="State - Copy\**" />
+    <EmbeddedResource Remove="Strategy - Copy\**" />
+    <None Remove="Observer - Copy\**" />
+    <None Remove="State - Copy\**" />
+    <None Remove="Strategy - Copy\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Observer\Interfaces\" />
+    <Folder Include="Strategy\Interfaces\" />
+  </ItemGroup>
+
 </Project>
