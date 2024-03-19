@@ -16,9 +16,19 @@ var scrumMaster = UserFactory.CreateUserWithRole("Jane", "ScrumMaster");
 var message = new Message("Hello all", developer.Name);
 
 // Registreer observers
-forum.RegisterObserver(scrumMaster);
-forum.RegisterObserver(productOwner);
 
-forum.PostMessage(message);
+//forum.RegisterObserver(scrumMaster);
+//forum.RegisterObserver(productOwner);
 
-forum.Close();
+//forum.PostMessage(message);
+
+//forum.Close();
+
+sprint.RegisterObserver(productOwner);
+sprint.RegisterObserver(developer);
+sprint.RegisterObserver(scrumMaster);
+
+sprint.StartProgress();
+sprint.Finish();
+sprint.StartReleasing();
+sprint.FinishRelease();
