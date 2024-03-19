@@ -1,16 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AvansDevOps.Factory.User.Interfaces;
+using System;
+using System.Reflection;
 
 namespace AvansDevOps.Factory.User
 {
-    public class UserFactory
+    public static class UserFactory
     {
-        public static T CreateUser<T>() where T : User, new()
+        public static User CreateUserWithRole(string name, string roleName)
         {
-            return new T();
+            var user = new User(name);
+
+            // Dynamically load the role based on roleName
+            var roleType = Type.GetType($"AvansDevOps.Factory.User.Roles.{roleName}");
+            if (roleType == null || !typeof(IRole).IsAssignableFrom(roleType))
+            {
+                throw new ArgumentException("Unknown role", nameof(roleName));
+            }
+
+            var role = (IRole)Activator.CreateInstance(roleType)!;
+            user.AssignRole(role);
+
+            return user;
         }
     }
 }

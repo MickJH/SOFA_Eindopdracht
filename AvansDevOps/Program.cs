@@ -8,11 +8,12 @@ using AvansDevOps.State.Forums;
 var sprint = new Sprint("Sprint 1", DateTime.Now, DateTime.Now.AddDays(7));
 var forum = new Forum(1, "Hello");
 
-var productOwner = UserFactory.CreateUser<ProductOwner>();
-var developer = UserFactory.CreateUser<Developer>();
-var scrumMaster = UserFactory.CreateUser<ScrumMaster>();
+var productOwner = UserFactory.CreateUserWithRole("Bob", "ProductOwner");
+var developer = UserFactory.CreateUserWithRole("John", "Developer");
+var scrumMaster = UserFactory.CreateUserWithRole("Jane", "ScrumMaster");
 
-var message = new Message("Hello all", developer.GetType().Name);
+
+var message = new Message("Hello all", developer.Name);
 
 // Registreer observers
 forum.RegisterObserver(scrumMaster);
