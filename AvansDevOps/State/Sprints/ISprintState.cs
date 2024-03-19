@@ -10,9 +10,10 @@ namespace AvansDevOps.State.Sprints
 {
     public interface ISprintState
     {
-        void Start(Sprint sprint);
+        void StartProgress(Sprint sprint);
         void Finish(Sprint sprint);
-        void Release(Sprint sprint);
+        void StartReleasing(Sprint sprint);
+        void FinishRelease(Sprint sprint);
         void Close(Sprint sprint);
         void Cancel(Sprint sprint);
     }

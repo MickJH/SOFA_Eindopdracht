@@ -9,17 +9,15 @@ namespace AvansDevOps.State.Sprints.States
 {
     public class ReleasingState : ISprintState
     {
-        public void Start(Sprint sprint) => throw new InvalidOperationException("Cannot start a sprint that is releasing.");
-
+        public void StartProgress(Sprint sprint) => throw new InvalidOperationException("Cannot start a sprint that is releasing.");
         public void Finish(Sprint sprint) => throw new InvalidOperationException("Cannot finish a sprint that is releasing.");
-
-        public void Release(Sprint sprint)
+        public void StartReleasing(Sprint sprint) => throw new InvalidOperationException("The sprint is already releasing.");
+        public void FinishRelease(Sprint sprint)
         {
             // Assuming deployment pipeline succeeds
             sprint.CurrentState = new ReleasedState();
         }
-
-        public void Close(Sprint sprint) => throw new InvalidOperationException("Cannot directly close a sprint during releasing.");
+        public void Close(Sprint sprint) => throw new InvalidOperationException("The sprint is not fully released yet.");
 
         public void Cancel(Sprint sprint)
         {
