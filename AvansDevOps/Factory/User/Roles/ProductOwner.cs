@@ -7,22 +7,12 @@ using System.Threading.Tasks;
 
 namespace AvansDevOps.Factory.User.Roles
 {
-    public class ProductOwner : User, IUserActions
+    public class ProductOwner : IRole
     {
-        public void ManageBacklogItems() => Console.WriteLine("Managing backlog items.");
-        public void AssignBacklogItemsToSprints() => Console.WriteLine("Assigning backlog items to sprints.");
-        public void DefineAcceptanceCriteria() => Console.WriteLine("Defining acceptance criteria.");
-        public void GenerateSprintReports() => Console.WriteLine("Generating sprint reports.");
-
-        // Not relevant for Product Owners
-        public void PerformAssignedActivities() => Console.WriteLine("Not allowed for Product Owner.");
-        public void AccessAndManageCodeRepository() => Console.WriteLine("Not allowed for Product Owner.");
-        public void ContributeToProjectProgress() => Console.WriteLine("Not allowed for Product Owner.");
-        public void ParticipateInSprints() => Console.WriteLine("Not allowed for Product Owner.");
-        public void ManageSprintBacklogs() => Console.WriteLine("Not allowed for Product Owner.");
-        public void AssignActivitiesToDevelopers() => Console.WriteLine("Not allowed for Product Owner.");
-        public void FacilitateScrumProcess() => Console.WriteLine("Not allowed for Product Owner.");
-        public void CommunicateWithTeamAndStakeholders() => Console.WriteLine("Not allowed for Product Owner.");
+        public void PerformRoleDuties()
+        {
+            Console.WriteLine( "All the actions a Product Owner can perform: " + "Managing backlog items, " + "Assigning backlog items to sprints, " + "Defining acceptance criteria, " + "Generating sprint reports.");
+        }
     }
 
 }

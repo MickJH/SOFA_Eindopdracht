@@ -4,10 +4,6 @@ using AvansDevOps.Factory.User;
 
 Console.WriteLine("Hello, World!");
 
-var productOwner = UserFactory.CreateUser<ProductOwner>();
-var developer = UserFactory.CreateUser<Developer>();
-var scrumMasterTwo = UserFactory.CreateUser<ScrumMaster>();
-
-
-productOwner.Name = "Bob";
-Console.WriteLine($"{productOwner.Name}");
+var productOwnerUser = UserFactory.CreateUserWithRole("Bob", "ProductOwner");
+productOwnerUser.PerformRoleDuties();
+Console.WriteLine(productOwnerUser.Name);
