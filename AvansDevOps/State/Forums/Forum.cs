@@ -15,26 +15,38 @@ namespace AvansDevOps.State.Forums
     {
         public IForumState CurrentState { get; set; }
         public string Title { get; private set; }
-        private List<Message> Messages;
-        private readonly List<INotificationObserver> _notificationObservers;
+        private readonly List<MessageComponent> _messages = new();
+        private readonly List<INotificationObserver> _notificationObservers = new();
 
         public Forum(int backlogId, string topic)
         {
             Title = backlogId + " " + topic;
             CurrentState = new OpenState();
-            Messages = new List<Message>();
-            _notificationObservers = new List<INotificationObserver>();
         }
 
-        public void PostMessage(Message newMessage)
+        public void PostMessage(MessageComponent newMessage)
         {
             if(CurrentState is OpenState)
             {
-                Messages.Add(newMessage);
-                NotifyObservers("New message posted by " + newMessage.User);
+                _messages.Add(newMessage);
+                NotifyObservers("New message posted by " + newMessage.UserName);
             } else
             {
                 throw new InvalidOperationException("Forum is closed, no new messages can be posted.");
+            }
+        }
+
+        public void DisplayMessages()
+        {
+            if (CurrentState is OpenState)
+            {
+                foreach (var message in _messages)
+                {
+                    message.Display();
+                }
+            } else
+            {
+                throw new InvalidOperationException("Forum is closed.");
             }
         }
 

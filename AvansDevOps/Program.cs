@@ -14,7 +14,6 @@ var developer = UserFactory.CreateUserWithRole("John", "Developer");
 var scrumMaster = UserFactory.CreateUserWithRole("Jane", "ScrumMaster");
 var tester = UserFactory.CreateUserWithRole("Tina", "Tester");
 
-var message = new Message("Hello all", developer.Name);
 sprint.AddBacklogItem(item1);
 
 // Registreer observers
@@ -24,7 +23,20 @@ forum.RegisterObserver(developer);
 forum.RegisterObserver(scrumMaster);
 forum.RegisterObserver(tester);
 
-forum.PostMessage(message);
+// Test composite and observer forum
+var rootMessage = new MessageComposite("I started a new project", scrumMaster.Name);
+forum.PostMessage(rootMessage);
+
+var reply1 = new MessageLeaf("That sounds great, Jane!", productOwner.Name);
+rootMessage.PostChildMessage(reply1);
+
+var reply2 = new MessageComposite("Can I contribute?", developer.Name);
+forum.PostMessage(reply2);
+
+var reply2_1 = new MessageLeaf("Sure, John!", scrumMaster.Name);
+reply2.PostChildMessage(reply2_1);
+
+forum.DisplayMessages();
 
 forum.Close();
 
