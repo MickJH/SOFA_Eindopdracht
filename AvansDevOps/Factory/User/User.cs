@@ -28,7 +28,7 @@ namespace AvansDevOps.Factory.User
 
         public void Notify(string message)
         {
-            Console.WriteLine("User: " + message);
+            Console.WriteLine(Role!.GetType().Name + ": " + message);
         }
     }
 
