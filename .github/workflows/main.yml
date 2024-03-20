@@ -21,17 +21,17 @@ jobs:
       # Restore dependencies for AvansDevOps
     - name: Restore dependencies (AvansDevOps)
       run: dotnet restore
-      working-directory: SOFA_Eindopdracht/AvansDevOps
+      working-directory: AvansDevOps
 
     # Build AvansDevOps
     - name: Build (AvansDevOps)
       run: dotnet build
-      working-directory: SOFA_Eindopdracht/AvansDevOps
+      working-directory: AvansDevOps
 
     # Run tests for AvansDevOpsTests
     - name: Test (AvansDevOps)
       run: dotnet test
-      working-directory: SOFA_Eindopdracht/AvansDevOpsTests
+      working-directory: AvansDevOpsTests
 
   sonarcloud:
     needs: build
