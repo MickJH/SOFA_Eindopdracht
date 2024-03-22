@@ -11,7 +11,7 @@ namespace AvansDevOps.Notification.ExternalSystems
     {
         public void SendNotification(string message, string user)
         {
-            Console.WriteLine("[MICROSOFT TEAMS] \n \t" + user + "\n\t" + message);
+            Console.WriteLine("[TEAMS] - " + user + "\n\t" + message + "\n");
         }
     }
 }

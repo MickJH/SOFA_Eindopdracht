@@ -80,8 +80,9 @@ namespace AvansDevOps.State.Sprints
         {
             CurrentState.FinishRelease(this);
             // Samenvatting toevoegen als er een sprint review plaatsvindt
-
+            Console.ForegroundColor = ConsoleColor.Green;
             NotifyObservers("Release finished.", new[] { typeof(ScrumMaster), typeof(ProductOwner) });
+            Console.ResetColor();
         }
         public void Close()
         {
@@ -91,7 +92,9 @@ namespace AvansDevOps.State.Sprints
         public void Cancel()
         {
             CurrentState.Cancel(this);
+            Console.ForegroundColor = ConsoleColor.Red;
             NotifyObservers("Sprint has been cancelled.", new[] { typeof(ScrumMaster), typeof(ProductOwner) });
+            Console.ResetColor();
         }
 
         public void RegisterObserver(INotificationObserver observer)

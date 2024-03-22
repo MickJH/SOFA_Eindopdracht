@@ -11,7 +11,7 @@ namespace AvansDevOps.Notification.ExternalSystems
     {
         public void SendNotification(string message, string user)
         {
-            Console.WriteLine("[SLACK] \n \t" + user + "\n\t" + message);
+            Console.WriteLine("[SLACK] - " + user + "\n\t" + message + "\n");
         }
     }
 }

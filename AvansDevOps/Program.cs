@@ -9,7 +9,7 @@ using AvansDevOps.Notification.ExternalSystems;
 
 var sprint = new Sprint("Sprint 1", DateTime.Now, DateTime.Now.AddDays(7));
 var item1 = new BacklogItem("Backlog 1");
-var forum = new Forum(1, "Hello");
+var forum = new Forum(item1);
 
 var slackService = new SlackService();
 var teamsService = new TeamsService();

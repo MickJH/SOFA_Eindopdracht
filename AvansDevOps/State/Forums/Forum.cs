@@ -1,6 +1,7 @@
 ﻿using AvansDevOps.Factory.User;
 using AvansDevOps.Factory.User.Roles;
 using AvansDevOps.Notification.Interfaces;
+using AvansDevOps.State.BacklogItems;
 using AvansDevOps.State.Forums.States;
 using Microsoft.VisualBasic;
 using System;
@@ -18,9 +19,9 @@ namespace AvansDevOps.State.Forums
         private readonly List<MessageComponent> _messages = new();
         private readonly List<INotificationObserver> _notificationObservers = new();
 
-        public Forum(int backlogId, string topic)
+        public Forum(BacklogItem backlogItem)
         {
-            Title = backlogId + " " + topic;
+            Title = backlogItem.Title;
             CurrentState = new OpenState();
         }
 
@@ -40,10 +41,15 @@ namespace AvansDevOps.State.Forums
         {
             if (CurrentState is OpenState)
             {
+        
+                Console.WriteLine("----------------------------- Forum -----------------------------");
+                Console.WriteLine("\b" + Title);
                 foreach (var message in _messages)
                 {
                     message.Display();
                 }
+                Console.WriteLine("----------------------------------------------------------------- \n");
+     
             } else
             {
                 throw new InvalidOperationException("Forum is closed.");
