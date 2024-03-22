@@ -15,23 +15,26 @@ namespace AvansDevOps.State.Forums
     public class Forum : INotificationSubject
     {
         public IForumState CurrentState { get; set; }
+        public BacklogItem BacklogItem { get; set; }
         public string Title { get; private set; }
         private readonly List<MessageComponent> _messages = new();
         private readonly List<INotificationObserver> _notificationObservers = new();
 
         public Forum(BacklogItem backlogItem)
         {
+            BacklogItem = backlogItem;
             Title = backlogItem.Title;
             CurrentState = new OpenState();
         }
 
         public void PostMessage(MessageComponent newMessage)
         {
-            if(CurrentState is OpenState)
+            if (CurrentState is OpenState)
             {
                 _messages.Add(newMessage);
                 NotifyObservers("New message posted by " + newMessage.UserName);
-            } else
+            }
+            else
             {
                 throw new InvalidOperationException("Forum is closed, no new messages can be posted.");
             }
@@ -39,21 +42,13 @@ namespace AvansDevOps.State.Forums
 
         public void DisplayMessages()
         {
-            if (CurrentState is OpenState)
+            Console.WriteLine("----------------------------- Forum -----------------------------");
+            Console.WriteLine("\b" + Title);
+            foreach (var message in _messages)
             {
-        
-                Console.WriteLine("----------------------------- Forum -----------------------------");
-                Console.WriteLine("\b" + Title);
-                foreach (var message in _messages)
-                {
-                    message.Display();
-                }
-                Console.WriteLine("----------------------------------------------------------------- \n");
-     
-            } else
-            {
-                throw new InvalidOperationException("Forum is closed.");
+                message.Display();
             }
+            Console.WriteLine("----------------------------------------------------------------- \n");
         }
 
         public void Open()

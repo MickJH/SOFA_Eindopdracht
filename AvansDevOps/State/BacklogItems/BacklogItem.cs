@@ -2,6 +2,7 @@
 using AvansDevOps.Factory.User.Roles;
 using AvansDevOps.Notification.Interfaces;
 using AvansDevOps.State.BacklogItems.States;
+using AvansDevOps.State.Forums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace AvansDevOps.State.BacklogItems
         private int StoryPoints;
         private readonly List<Activity> _activities = new List<Activity>();
         private User Developer;
+        private List<Forum> _forums = new List<Forum>();
 
         public BacklogItem(string title, int storypoints, User? developer = null)
         {
@@ -36,6 +38,11 @@ namespace AvansDevOps.State.BacklogItems
         public void DeleteActivity(Activity activity)
         {
             _activities.Remove(activity);
+        }
+
+        public void AddForum(Forum forum)
+        {
+            _forums.Add(forum);
         }
 
         public void Display()
@@ -64,7 +71,14 @@ namespace AvansDevOps.State.BacklogItems
             //                  Het item wordt terggeplaatst naar ToDo.", new[] { typeof(ScrumMaster) });
         }
         public void FinishTesting(bool isSuccessful) => CurrentState.FinishTesting(this, isSuccessful);
-        public void Complete() => CurrentState.Complete(this);
+        public void Complete()
+        {
+            CurrentState.Complete(this);
+            foreach (var forum in _forums)
+            {
+                forum.Close();
+            }
+        }
         public void Reopen() => CurrentState.Reopen(this);
 
 

@@ -27,6 +27,7 @@ var item1 = new BacklogItem("Backlog 1", 10);
 var item2 = new BacklogItem("Backlog 2", 10);
 
 var forum = new Forum(item1);
+item1.AddForum(forum);
 
 var activity1 = new Activity(1, "Activity 1");
 var activity2 = new Activity(2, "Activity 2");
@@ -71,8 +72,6 @@ var reply2_1 = new MessageLeaf("Sure, John!", scrumMaster.Name);
 reply2.PostChildMessage(reply2_1);
 
 forum.DisplayMessages();
-
-forum.Close();
 
 sprint.RegisterObserver(productOwner);
 sprint.RegisterObserver(developer);
