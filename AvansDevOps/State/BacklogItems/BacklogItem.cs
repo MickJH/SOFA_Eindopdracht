@@ -16,13 +16,38 @@ namespace AvansDevOps.State.BacklogItems
         public IBacklogItemState CurrentState { get; set; }
         public string Title { get; private set; }
         private readonly List<INotificationObserver> _notificationObservers = new List<INotificationObserver>();
+        private int StoryPoints;
+        private readonly List<Activity> _activities = new List<Activity>();
+        private User Developer;
 
-        public BacklogItem(string title)
+        public BacklogItem(string title, int storypoints, User? developer = null)
         {
             Title = title;
+            StoryPoints = storypoints;
             CurrentState = new TodoState();
+            Developer = developer;
         }
 
+        public void AddActivity(Activity activity)
+        {
+            _activities.Add(activity);
+        }
+
+        public void DeleteActivity(Activity activity)
+        {
+            _activities.Remove(activity);
+        }
+
+        public void Display()
+        {
+            Console.WriteLine(this.Title + (this.Developer != null ? " - " + this.Developer : "") + " (" + StoryPoints + " points) ---");
+            foreach (var activity in _activities)
+            {
+                Console.WriteLine("\t * " + activity.Id + " - " + activity.Title + " - " + (activity.Developer != null ? activity.Developer.Name : "No developer assigned"));
+            }
+        }
+
+        // States
         public void StartProgress() => CurrentState.StartProgress(this);
         public void MarkAsReadyForTesting()
         {
@@ -42,6 +67,8 @@ namespace AvansDevOps.State.BacklogItems
         public void Complete() => CurrentState.Complete(this);
         public void Reopen() => CurrentState.Reopen(this);
 
+
+        // Observers
         public void RegisterObserver(INotificationObserver observer)
         {
             _notificationObservers.Add(observer);

@@ -67,6 +67,19 @@ namespace AvansDevOps.State.Sprints
                 throw new InvalidOperationException("Cannot change the backlog of a sprint that has already started.");
             }
         }
+
+        public void Display()
+        {
+            Console.WriteLine(Name + " (" + StartDate.ToShortDateString() + " - " + EndDate.ToShortDateString() + ") \n---------------------------------");
+            foreach (var backlogItem in BacklogItems)
+            {
+                backlogItem.Display();
+            }
+
+            Console.WriteLine();
+        }
+
+        // States
         public void StartProgress() => CurrentState.StartProgress(this);
         public void Finish() => CurrentState.Finish(this);
         public void StartReleasing()
@@ -97,6 +110,7 @@ namespace AvansDevOps.State.Sprints
             Console.ResetColor();
         }
 
+        // Observers
         public void RegisterObserver(INotificationObserver observer)
         {
             _notificationObservers.Add(observer);
