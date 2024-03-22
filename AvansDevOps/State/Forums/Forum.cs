@@ -1,6 +1,6 @@
 ﻿using AvansDevOps.Factory.User;
 using AvansDevOps.Factory.User.Roles;
-using AvansDevOps.Observer.Interfaces;
+using AvansDevOps.Notification.Interfaces;
 using AvansDevOps.State.Forums.States;
 using Microsoft.VisualBasic;
 using System;

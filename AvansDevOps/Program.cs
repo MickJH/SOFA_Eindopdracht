@@ -4,14 +4,19 @@ using AvansDevOps.Factory.User;
 using AvansDevOps.State.Sprints;
 using AvansDevOps.State.Forums;
 using AvansDevOps.State.BacklogItems;
+using AvansDevOps.Notification.Interfaces;
+using AvansDevOps.Notification.ExternalSystems;
 
 var sprint = new Sprint("Sprint 1", DateTime.Now, DateTime.Now.AddDays(7));
 var item1 = new BacklogItem("Backlog 1");
 var forum = new Forum(1, "Hello");
 
-var productOwner = UserFactory.CreateUserWithRole("Bob", "ProductOwner");
-var developer = UserFactory.CreateUserWithRole("John", "Developer");
-var scrumMaster = UserFactory.CreateUserWithRole("Jane", "ScrumMaster");
+var slackService = new SlackService();
+var teamsService = new TeamsService();
+
+var productOwner = UserFactory.CreateUserWithRole("Bob", "ProductOwner", new[] { slackService });
+var developer = UserFactory.CreateUserWithRole("John", "Developer", new[] { teamsService });
+var scrumMaster = UserFactory.CreateUserWithRole("Jane", "ScrumMaster", new INotificationAdapter[] { slackService, teamsService });
 var tester = UserFactory.CreateUserWithRole("Tina", "Tester");
 
 sprint.AddBacklogItem(item1);

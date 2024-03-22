@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AvansDevOps.State.Sprints.States;
-using AvansDevOps.Observer.Interfaces;
 using AvansDevOps.Factory.User.Roles;
 using AvansDevOps.Factory.User;
 using AvansDevOps.Factory.User.Interfaces;
+using AvansDevOps.Notification.Interfaces;
 
 namespace AvansDevOps.State.Sprints
 {
