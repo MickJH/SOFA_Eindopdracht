@@ -7,6 +7,8 @@ using AvansDevOps.State.BacklogItems;
 using AvansDevOps.Notification.Interfaces;
 using AvansDevOps.Notification.ExternalSystems;
 using AvansDevOps.State;
+using AvansDevOps.Strategy;
+using AvansDevOps.Strategy.Export;
 
 // Services
 var slackService = new SlackService();
@@ -91,3 +93,12 @@ item1.RegisterObserver(tester);
 item1.StartProgress();
 item1.MarkAsReadyForTesting();
 item1.Reopen();
+
+//Reports
+var report = new Report("This is a report");
+var exporter = new ReportExporter(new PdfExportStrategy());
+exporter.ExportReport(report);
+
+//Change format for Report
+exporter.SetExportStrategy(new PngExportStrategy());
+exporter.ExportReport(report);
