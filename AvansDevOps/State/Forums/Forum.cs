@@ -1,6 +1,7 @@
 ﻿using AvansDevOps.Factory.User;
 using AvansDevOps.Factory.User.Roles;
-using AvansDevOps.Observer.Interfaces;
+using AvansDevOps.Notification.Interfaces;
+using AvansDevOps.State.BacklogItems;
 using AvansDevOps.State.Forums.States;
 using Microsoft.VisualBasic;
 using System;
@@ -14,28 +15,40 @@ namespace AvansDevOps.State.Forums
     public class Forum : INotificationSubject
     {
         public IForumState CurrentState { get; set; }
+        public BacklogItem BacklogItem { get; set; }
         public string Title { get; private set; }
-        private List<Message> Messages;
-        private readonly List<INotificationObserver> _notificationObservers;
+        private readonly List<MessageComponent> _messages = new();
+        private readonly List<INotificationObserver> _notificationObservers = new();
 
-        public Forum(int backlogId, string topic)
+        public Forum(BacklogItem backlogItem)
         {
-            Title = backlogId + " " + topic;
+            BacklogItem = backlogItem;
+            Title = backlogItem.Title;
             CurrentState = new OpenState();
-            Messages = new List<Message>();
-            _notificationObservers = new List<INotificationObserver>();
         }
 
-        public void PostMessage(Message newMessage)
+        public void PostMessage(MessageComponent newMessage)
         {
-            if(CurrentState is OpenState)
+            if (CurrentState is OpenState)
             {
-                Messages.Add(newMessage);
-                NotifyObservers("New message posted by " + newMessage.User);
-            } else
+                _messages.Add(newMessage);
+                NotifyObservers("New message posted by " + newMessage.UserName);
+            }
+            else
             {
                 throw new InvalidOperationException("Forum is closed, no new messages can be posted.");
             }
+        }
+
+        public void DisplayMessages()
+        {
+            Console.WriteLine("----------------------------- Forum -----------------------------");
+            Console.WriteLine("\b" + Title);
+            foreach (var message in _messages)
+            {
+                message.Display();
+            }
+            Console.WriteLine("----------------------------------------------------------------- \n");
         }
 
         public void Open()

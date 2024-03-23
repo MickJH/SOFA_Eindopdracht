@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AvansDevOps.State.Sprints.States;
-using AvansDevOps.Observer.Interfaces;
 using AvansDevOps.Factory.User.Roles;
 using AvansDevOps.Factory.User;
 using AvansDevOps.Factory.User.Interfaces;
+using AvansDevOps.Notification.Interfaces;
 
 namespace AvansDevOps.State.Sprints
 {
@@ -67,6 +67,19 @@ namespace AvansDevOps.State.Sprints
                 throw new InvalidOperationException("Cannot change the backlog of a sprint that has already started.");
             }
         }
+
+        public void Display()
+        {
+            Console.WriteLine(Name + " (" + StartDate.ToShortDateString() + " - " + EndDate.ToShortDateString() + ") \n---------------------------------");
+            foreach (var backlogItem in BacklogItems)
+            {
+                backlogItem.Display();
+            }
+
+            Console.WriteLine();
+        }
+
+        // States
         public void StartProgress() => CurrentState.StartProgress(this);
         public void Finish() => CurrentState.Finish(this);
         public void StartReleasing()
@@ -80,8 +93,9 @@ namespace AvansDevOps.State.Sprints
         {
             CurrentState.FinishRelease(this);
             // Samenvatting toevoegen als er een sprint review plaatsvindt
-
+            Console.ForegroundColor = ConsoleColor.Green;
             NotifyObservers("Release finished.", new[] { typeof(ScrumMaster), typeof(ProductOwner) });
+            Console.ResetColor();
         }
         public void Close()
         {
@@ -91,9 +105,12 @@ namespace AvansDevOps.State.Sprints
         public void Cancel()
         {
             CurrentState.Cancel(this);
+            Console.ForegroundColor = ConsoleColor.Red;
             NotifyObservers("Sprint has been cancelled.", new[] { typeof(ScrumMaster), typeof(ProductOwner) });
+            Console.ResetColor();
         }
 
+        // Observers
         public void RegisterObserver(INotificationObserver observer)
         {
             _notificationObservers.Add(observer);

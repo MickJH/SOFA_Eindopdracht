@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AvansDevOps.Observer.Interfaces
+namespace AvansDevOps.Notification.Interfaces
 {
     public interface INotificationSubject
     {
