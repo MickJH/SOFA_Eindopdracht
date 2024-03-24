@@ -9,9 +9,9 @@ using AvansDevOps.State.Forums;
 using NSubstitute;
 using AvansDevOps.State.Forums.States;
 using AvansDevOps.State.Sprints.States;
-using AvansDevOps.State.Sprints;
 using AvansDevOps.Factory.User;
 using AvansDevOps.State;
+using AvansDevOps.State.Sprints;
 
 namespace AvansDevOpsTest
 {
