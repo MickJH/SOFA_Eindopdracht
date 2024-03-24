@@ -2,7 +2,7 @@
 using AvansDevOps.State.BacklogItems.States;
 using Xunit;
 
-namespace AvansDevOpsTest.BacklogItems
+namespace AvansDevOpsTest
 {
     public class BacklogItemStatesTests
     {
