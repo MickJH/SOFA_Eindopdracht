@@ -22,8 +22,8 @@ var tester = UserFactory.CreateUserWithRole("Tina", "Tester");
 
 var project1 = new Project(1, "Project 1", "My first project", "Tests written");
 
-var sprint = new Sprint("Sprint 1", DateTime.Now, DateTime.Now.AddDays(7));
-var sprint2 = new Sprint("Sprint 2", DateTime.Now.AddDays(7), DateTime.Now.AddDays(14));
+var sprint = new Sprint("Sprint 1", DateTime.Now, DateTime.Now.AddDays(7), "Review");
+var sprint2 = new Sprint("Sprint 2", DateTime.Now.AddDays(7), DateTime.Now.AddDays(14), "Review");
 
 var item1 = new BacklogItem("Backlog 1", 10);
 var item2 = new BacklogItem("Backlog 2", 10);
@@ -84,6 +84,7 @@ sprint.StartProgress();
 sprint.Finish();
 sprint.StartReleasing();
 sprint.FinishRelease();
+sprint.Close();
 
 item1.RegisterObserver(productOwner);
 item1.RegisterObserver(developer);
@@ -95,10 +96,10 @@ item1.MarkAsReadyForTesting();
 item1.Reopen();
 
 //Reports
-var report = new Report("This is a report");
-var exporter = new ReportExporter(new PdfExportStrategy());
-exporter.ExportReport(report);
+//var report = new Report("This is a report");
+//var exporter = new ReportExporter(new PdfExportStrategy());
+//exporter.ExportReport(report);
 
-//Change format for Report
-exporter.SetExportStrategy(new PngExportStrategy());
-exporter.ExportReport(report);
+////Change format for Report
+//exporter.SetExportStrategy(new PngExportStrategy());
+//exporter.ExportReport(report);

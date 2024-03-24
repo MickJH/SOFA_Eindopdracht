@@ -10,6 +10,9 @@ using AvansDevOps.Factory.User.Roles;
 using AvansDevOps.Factory.User;
 using AvansDevOps.Factory.User.Interfaces;
 using AvansDevOps.Notification.Interfaces;
+using AvansDevOps.Pipeline;
+using AvansDevOps.Strategy;
+using AvansDevOps.Strategy.Export;
 
 namespace AvansDevOps.State.Sprints
 {
@@ -22,13 +25,15 @@ namespace AvansDevOps.State.Sprints
         public DateTime EndDate { get; set; }
         public List<BacklogItem> BacklogItems { get; private set; } = new();
         private readonly List<INotificationObserver> _notificationObservers = new();
+        private readonly string SprintType;
 
-        public Sprint(string name, DateTime start, DateTime end)
+        public Sprint(string name, DateTime start, DateTime end, string sprintType)
         {
             Name = name;
             StartDate = start;
             EndDate = end;
             CurrentState = new CreatedState();
+            SprintType = sprintType;
         }
 
         public void SetName(string name)
@@ -85,14 +90,28 @@ namespace AvansDevOps.State.Sprints
         public void StartReleasing()
         {
             CurrentState.StartReleasing(this);
+            try
+            {
+                if (SprintType == "Release")
+                {
+                    var pipeline = new ReleasePipeline();
+                    pipeline.RunPipeline();
+                }
+                else if (SprintType == "Review")
+                {
+                    var pipeline = new ReviewPipeline();
+                    pipeline.RunPipeline();
+                }
+            }
+            catch (Exception)
+            {
 
-            // Als er een error optreedt tijdens de development pipeline
-            // NotifyObservers("Something went wrong, restart the pipeline.", new [] { typeof(ScrumMaster) });
+                NotifyObservers("Something went wrong, restart the pipeline.", new[] { typeof(ScrumMaster) });
+            }
         }
         public void FinishRelease()
         {
             CurrentState.FinishRelease(this);
-            // Samenvatting toevoegen als er een sprint review plaatsvindt
             Console.ForegroundColor = ConsoleColor.Green;
             NotifyObservers("Release finished.", new[] { typeof(ScrumMaster), typeof(ProductOwner) });
             Console.ResetColor();
@@ -100,7 +119,15 @@ namespace AvansDevOps.State.Sprints
         public void Close()
         {
             CurrentState.Close(this);
-            // Genereer rapportage
+            var myReport = new Report("Annual Report");
+            myReport.AddContentSection("Introduction");
+            myReport.AddContentSection("Financial Overview");
+            myReport.AddContentSection("Conclusion");
+
+            // Choose the export strategy, pdf or png
+            var pdfExport = new PdfExportStrategy();
+            var exporter = new ReportExporter(pdfExport);
+            exporter.ExportReport(myReport);
         }
         public void Cancel()
         {
