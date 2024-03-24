@@ -20,6 +20,10 @@ namespace AvansDevOps.Strategy
         {
             _exportStrategy.Export(report);
         }
+        public IExportStrategy GetExportStrategy()
+        {
+            return _exportStrategy;
+        }
     }
 }
 
