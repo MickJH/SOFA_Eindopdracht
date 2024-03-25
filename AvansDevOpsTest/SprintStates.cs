@@ -12,7 +12,7 @@ namespace AvansDevOpsTest
         {
             //Arrange
             var _state = new InProgressState();
-            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             //Act 
             _state.Finish(sprint);
             //Assert
@@ -24,7 +24,7 @@ namespace AvansDevOpsTest
         {
             //Arrange
             var _state = new InProgressState();
-            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             //Act
             _state.Cancel(sprint);
             //Assert
@@ -36,7 +36,7 @@ namespace AvansDevOpsTest
         {
             //Arrange
             var _state = new InProgressState();
-            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             //Act & Assert
             Assert.Throws<InvalidOperationException>(() => _state.StartProgress(sprint));
         }
@@ -46,7 +46,7 @@ namespace AvansDevOpsTest
         {
             //Arrange
             var _state = new InProgressState();
-            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             //Act & Assert
             Assert.Throws<InvalidOperationException>(() => _state.StartReleasing(sprint));
         }
@@ -56,7 +56,7 @@ namespace AvansDevOpsTest
         {
             //Arrange
             var _state = new InProgressState();
-            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             //Act & Assert
             Assert.Throws<InvalidOperationException>(() => _state.FinishRelease(sprint));
         }
@@ -66,7 +66,7 @@ namespace AvansDevOpsTest
         {
             //Arrange
             var _state = new InProgressState();
-            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             //Act & Assert
             Assert.Throws<InvalidOperationException>(() => _state.Close(sprint));
         }
@@ -76,7 +76,7 @@ namespace AvansDevOpsTest
         {
             //Arrange
             var _state = new CancelledState();
-            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             //Act & Assert
             Assert.Throws<InvalidOperationException>(() => _state.StartProgress(sprint));
         }
@@ -86,7 +86,7 @@ namespace AvansDevOpsTest
         {
             //Arrange
             var _state = new CancelledState();
-            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             //Act & Assert
             Assert.Throws<InvalidOperationException>(() => _state.Finish(sprint));
         }
@@ -96,7 +96,7 @@ namespace AvansDevOpsTest
         {
             //Arrange
             var _state = new CancelledState();
-            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             //Act & Assert
             Assert.Throws<InvalidOperationException>(() => _state.StartReleasing(sprint));
         }
@@ -106,7 +106,7 @@ namespace AvansDevOpsTest
         {
             //Arrange
             var _state = new CancelledState();
-            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             //Act & Assert
             Assert.Throws<InvalidOperationException>(() => _state.FinishRelease(sprint));
         }
@@ -116,7 +116,7 @@ namespace AvansDevOpsTest
         {
             //Arrange
             var _state = new CancelledState();
-            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             //Act & Assert
             Assert.Throws<InvalidOperationException>(() => _state.Close(sprint));
         }
@@ -126,7 +126,7 @@ namespace AvansDevOpsTest
         {
             //Arrange
             var _state = new CancelledState();
-            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             //Act & Assert
             Assert.Throws<InvalidOperationException>(() => _state.Cancel(sprint));
         }
@@ -135,7 +135,7 @@ namespace AvansDevOpsTest
         public void StartProgress_ThrowsInvalidOperationExceptionClosedState()
         {
             var state = new ClosedState();
-            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             Assert.Throws<InvalidOperationException>(() => state.StartProgress(sprint));
         }
 
@@ -143,7 +143,7 @@ namespace AvansDevOpsTest
         public void Finish_ThrowsInvalidOperationExceptionClosedState()
         {
             var state = new ClosedState();
-            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             Assert.Throws<InvalidOperationException>(() => state.Finish(sprint));
         }
 
@@ -151,7 +151,7 @@ namespace AvansDevOpsTest
         public void StartReleasing_ThrowsInvalidOperationExceptionClosedState()
         {
             var state = new ClosedState();
-            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             Assert.Throws<InvalidOperationException>(() => state.StartReleasing(sprint));
         }
 
@@ -159,7 +159,7 @@ namespace AvansDevOpsTest
         public void FinishRelease_ThrowsInvalidOperationExceptionClosedState()
         {
             var state = new ClosedState();
-            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             Assert.Throws<InvalidOperationException>(() => state.FinishRelease(sprint));
         }
 
@@ -167,7 +167,7 @@ namespace AvansDevOpsTest
         public void Close_ThrowsInvalidOperationExceptionClosedState()
         {
             var state = new ClosedState();
-            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             Assert.Throws<InvalidOperationException>(() => state.Close(sprint));
         }
 
@@ -175,7 +175,7 @@ namespace AvansDevOpsTest
         public void Cancel_ThrowsInvalidOperationExceptionClosedState()
         {
             var state = new ClosedState();
-            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             Assert.Throws<InvalidOperationException>(() => state.Cancel(sprint));
         }
 
@@ -184,7 +184,7 @@ namespace AvansDevOpsTest
         {
             // Arrange
             var state = new CreatedState();
-            Sprint sprint = new Sprint("New Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("New Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
 
             // Act
             state.StartProgress(sprint);
@@ -198,7 +198,7 @@ namespace AvansDevOpsTest
         {
             // Arrange
             var state = new CreatedState();
-            Sprint sprint = new Sprint("New Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("New Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
 
             // Act
             state.Cancel(sprint);
@@ -212,7 +212,7 @@ namespace AvansDevOpsTest
         {
             // Arrange
             var state = new CreatedState();
-            Sprint sprint = new Sprint("New Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("New Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
 
             // Act & Assert
             Assert.Throws<InvalidOperationException>(() => state.Finish(sprint));
@@ -223,7 +223,7 @@ namespace AvansDevOpsTest
         {
             // Arrange
             var state = new CreatedState();
-            Sprint sprint = new Sprint("New Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("New Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
 
             // Act & Assert
             Assert.Throws<InvalidOperationException>(() => state.StartReleasing(sprint));
@@ -234,7 +234,7 @@ namespace AvansDevOpsTest
         {
             // Arrange
             var state = new CreatedState();
-            Sprint sprint = new Sprint("New Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("New Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
 
             // Act & Assert
             Assert.Throws<InvalidOperationException>(() => state.FinishRelease(sprint));
@@ -245,7 +245,7 @@ namespace AvansDevOpsTest
         {
             // Arrange
             var state = new CreatedState();
-            Sprint sprint = new Sprint("New Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("New Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
 
             // Act & Assert
             Assert.Throws<InvalidOperationException>(() => state.Close(sprint));
@@ -256,7 +256,7 @@ namespace AvansDevOpsTest
         {
             // Arrange
             var state = new FinishedState();
-            Sprint sprint = new Sprint("Finished Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Finished Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
 
             // Act
             state.StartReleasing(sprint);
@@ -270,7 +270,7 @@ namespace AvansDevOpsTest
         {
             // Arrange
             var state = new FinishedState();
-            Sprint sprint = new Sprint("Finished Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Finished Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
 
             // Act
             state.Cancel(sprint);
@@ -284,7 +284,7 @@ namespace AvansDevOpsTest
         {
             // Arrange
             var state = new FinishedState();
-            Sprint sprint = new Sprint("Finished Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Finished Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
 
             // Act & Assert
             Assert.Throws<InvalidOperationException>(() => state.StartProgress(sprint));
@@ -295,7 +295,7 @@ namespace AvansDevOpsTest
         {
             // Arrange
             var state = new FinishedState();
-            Sprint sprint = new Sprint("Finished Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Finished Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
 
             // Act & Assert
             Assert.Throws<InvalidOperationException>(() => state.Finish(sprint));
@@ -306,7 +306,7 @@ namespace AvansDevOpsTest
         {
             // Arrange
             var state = new FinishedState();
-            Sprint sprint = new Sprint("Finished Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Finished Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
 
             // Act & Assert
             Assert.Throws<InvalidOperationException>(() => state.FinishRelease(sprint));
@@ -317,7 +317,7 @@ namespace AvansDevOpsTest
         {
             // Arrange
             var state = new FinishedState();
-            Sprint sprint = new Sprint("Finished Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Finished Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
 
             // Act & Assert
             Assert.Throws<InvalidOperationException>(() => state.Close(sprint));
@@ -327,7 +327,7 @@ namespace AvansDevOpsTest
         public void StartProgress_ThrowsInvalidOperationExceptionReleasedState()
         {
             var state = new ReleasedState();
-            Sprint sprint = new Sprint("Released Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Released Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             Assert.Throws<InvalidOperationException>(() => state.StartProgress(sprint));
         }
 
@@ -335,7 +335,7 @@ namespace AvansDevOpsTest
         public void Finish_ThrowsInvalidOperationExceptionReleasedState()
         {
             var state = new ReleasedState();
-            Sprint sprint = new Sprint("Released Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Released Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             Assert.Throws<InvalidOperationException>(() => state.Finish(sprint));
         }
 
@@ -343,7 +343,7 @@ namespace AvansDevOpsTest
         public void StartReleasing_ThrowsInvalidOperationExceptionReleasedState()
         {
             var state = new ReleasedState();
-            Sprint sprint = new Sprint("Released Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Released Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             Assert.Throws<InvalidOperationException>(() => state.StartReleasing(sprint));
         }
 
@@ -351,7 +351,7 @@ namespace AvansDevOpsTest
         public void FinishRelease_ThrowsInvalidOperationExceptionReleasedState()
         {
             var state = new ReleasedState();
-            Sprint sprint = new Sprint("Released Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Released Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             Assert.Throws<InvalidOperationException>(() => state.FinishRelease(sprint));
         }
 
@@ -359,7 +359,7 @@ namespace AvansDevOpsTest
         public void Close_ChangesStateToClosedReleasedState()
         {
             var state = new ReleasedState();
-            Sprint sprint = new Sprint("Released Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Released Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             state.Close(sprint);
             Assert.IsType<ClosedState>(sprint.CurrentState);
         }
@@ -368,7 +368,7 @@ namespace AvansDevOpsTest
         public void Cancel_ThrowsInvalidOperationExceptionReleasedState()
         {
             var state = new ReleasedState();
-            Sprint sprint = new Sprint("Released Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Released Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             Assert.Throws<InvalidOperationException>(() => state.Cancel(sprint));
         }
 
@@ -376,7 +376,7 @@ namespace AvansDevOpsTest
         public void StartProgress_ThrowsInvalidOperationExceptionReleasingState()
         {
             var state = new ReleasingState();
-            Sprint sprint = new Sprint("Releasing Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Releasing Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             Assert.Throws<InvalidOperationException>(() => state.StartProgress(sprint));
         }
 
@@ -384,7 +384,7 @@ namespace AvansDevOpsTest
         public void Finish_ThrowsInvalidOperationExceptionReleasingState()
         {
             var state = new ReleasingState();
-            Sprint sprint = new Sprint("Releasing Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Releasing Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             Assert.Throws<InvalidOperationException>(() => state.Finish(sprint));
         }
 
@@ -392,7 +392,7 @@ namespace AvansDevOpsTest
         public void StartReleasing_ThrowsInvalidOperationExceptionReleasingState()
         {
             var state = new ReleasingState();
-            Sprint sprint = new Sprint("Releasing Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Releasing Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             Assert.Throws<InvalidOperationException>(() => state.StartReleasing(sprint));
         }
 
@@ -400,7 +400,7 @@ namespace AvansDevOpsTest
         public void FinishRelease_ChangesStateToReleasedReleasingState()
         {
             var state = new ReleasingState();
-            Sprint sprint = new Sprint("Releasing Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Releasing Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             state.FinishRelease(sprint);
             Assert.IsType<ReleasedState>(sprint.CurrentState);
         }
@@ -409,7 +409,7 @@ namespace AvansDevOpsTest
         public void Close_ThrowsInvalidOperationExceptionReleasingState()
         {
             var state = new ReleasingState();
-            Sprint sprint = new Sprint("Releasing Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Releasing Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             Assert.Throws<InvalidOperationException>(() => state.Close(sprint));
         }
 
@@ -417,7 +417,7 @@ namespace AvansDevOpsTest
         public void Cancel_ChangesStateToCancelledReleasingState()
         {
             var state = new ReleasingState();
-            Sprint sprint = new Sprint("Releasing Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            Sprint sprint = new Sprint("Releasing Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             state.Cancel(sprint);
             Assert.IsType<CancelledState>(sprint.CurrentState);
         }
