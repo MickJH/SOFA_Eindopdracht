@@ -19,8 +19,4 @@
     <None Remove="Strategy - Copy\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Strategy\" />
-  </ItemGroup>
-
 </Project>
