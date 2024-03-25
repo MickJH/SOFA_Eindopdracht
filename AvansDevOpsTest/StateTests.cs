@@ -138,7 +138,7 @@ namespace AvansDevOpsTest
         public void StartSprint_ChangesStateToInProgress()
         {
             // Arrange
-            var sprint = new Sprint("New Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            var sprint = new Sprint("New Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             sprint.CurrentState = new CreatedState();
 
             // Act
@@ -152,7 +152,7 @@ namespace AvansDevOpsTest
         public void ReviewSprint_WhenInProgress_ChangesStateToReleasing()
         {
             // Arrange
-            var sprint = new Sprint("Sprint Review", DateTime.Now, DateTime.Now.AddDays(14));
+            var sprint = new Sprint("Sprint Review", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             sprint.CurrentState = new FinishedState();
 
             // Act
@@ -166,7 +166,7 @@ namespace AvansDevOpsTest
         public void CompleteSprint_WhenInReview_ChangesStateToCompleted()
         {
             // Arrange
-            var sprint = new Sprint("Sprint Complete", DateTime.Now, DateTime.Now.AddDays(14));
+            var sprint = new Sprint("Sprint Complete", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             sprint.CurrentState = new InProgressState();
 
             // Act
@@ -180,7 +180,7 @@ namespace AvansDevOpsTest
         public void CancelSprint_FromAnyState_ChangesStateToCancelled()
         {
             // Arrange
-            var sprint = new Sprint("Sprint Cancel", DateTime.Now, DateTime.Now.AddDays(14));
+            var sprint = new Sprint("Sprint Cancel", DateTime.Now, DateTime.Now.AddDays(14), "Released");
             sprint.CurrentState = new InProgressState();
 
             // Act
@@ -245,7 +245,7 @@ namespace AvansDevOpsTest
         {
             // Arrange
             var project = new Project(1, "Project", "Description", "DoD");
-            var sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14));
+            var sprint = new Sprint("Sprint", DateTime.Now, DateTime.Now.AddDays(14), "Released");
 
             // Act
             project.AddSprint(sprint);
